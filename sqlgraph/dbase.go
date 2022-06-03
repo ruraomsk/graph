@@ -6,7 +6,7 @@ import (
 )
 
 func (o *oneRegion) loadGraph() error {
-	vs, err := db.Query("select state from public.vertex where region=$1;", o.region)
+	vs, err := dbv.Query("select state from public.vertex where region=$1;", o.region)
 	o.load = false
 	if err != nil {
 		return err
@@ -36,7 +36,7 @@ func (o *oneRegion) loadGraph() error {
 	if !o.load {
 		return nil
 	}
-	ws, err := db.Query("select info from public.ways where region=$1", o.region)
+	ws, err := dbv.Query("select info from public.ways where region=$1", o.region)
 	if err != nil {
 		return err
 	}
@@ -63,7 +63,7 @@ func (o *oneRegion) saveGraph() error {
 	if err != nil {
 		return err
 	}
-	_, err = db.Exec("delete from public.ways where region=$1;", o.region)
+	_, err = dbv.Exec("delete from public.ways where region=$1;", o.region)
 	if err != nil {
 		return err
 	}
@@ -73,7 +73,7 @@ func (o *oneRegion) saveGraph() error {
 		if err != nil {
 			return err
 		}
-		_, err = db.Exec("insert into public.vertex (region,uids,state) values ($1,$2,$3);", o.region, v.vertex.getUID(), state)
+		_, err = dbv.Exec("insert into public.vertex (region,uids,state) values ($1,$2,$3);", o.region, v.vertex.getUID(), state)
 		if err != nil {
 			return err
 		}
@@ -83,7 +83,7 @@ func (o *oneRegion) saveGraph() error {
 			if err != nil {
 				return err
 			}
-			_, err = db.Exec("insert into public.ways (region,source,target,info) values ($1,$2,$3,$4);", o.region, w.Source, w.Target, info)
+			_, err = dbv.Exec("insert into public.ways (region,source,target,info) values ($1,$2,$3,$4);", o.region, w.Source, w.Target, info)
 			if err != nil {
 				return err
 			}
