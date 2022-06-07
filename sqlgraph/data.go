@@ -20,8 +20,8 @@ type Way struct {
 	Region int    `json:"region"` //Регион
 	Source uint64 `json:"source"` //Источник код перекрестка
 	Target uint64 `json:"target"` //Получатель уод перекрестка
-	Start  point  `json:"starts"`
-	Stop   point  `json:"stops"`
+	Start  string `json:"starts"`
+	Stop   string `json:"stops"`
 	Lenght int    `json:"lenght"`
 	Time   int    `json:"time"`
 }
@@ -40,10 +40,8 @@ type WayToWeb struct {
 }
 type extVertex struct {
 	vertex Vertex
+	color  int
 	ways   map[uint64]*Way
-}
-type point struct {
-	value string
 }
 
 type oneRegion struct {

@@ -45,7 +45,7 @@ func GetWaysFromCross(cross pudge.Cross) ([]WayToWeb, error) {
 	}
 	for _, v := range sext.ways {
 		ww := WayToWeb{Region: v.Region, SourceArea: getArea(v.Source), SourceID: getID(v.Source), TargetArea: getArea(v.Target), TargetID: getID(v.Target),
-			Start: v.Start.value, Stop: v.Stop.value}
+			Start: v.Start, Stop: v.Stop}
 		result = append(result, ww)
 	}
 	return result, nil
@@ -60,7 +60,7 @@ func GetWaysFromPoint(region int, number int) ([]WayToWeb, error) {
 	}
 	for _, v := range sext.ways {
 		ww := WayToWeb{Region: v.Region, SourceArea: getArea(v.Source), SourceID: getID(v.Source), TargetArea: getArea(v.Target), TargetID: getID(v.Target),
-			Start: v.Start.value, Stop: v.Stop.value}
+			Start: v.Start, Stop: v.Stop}
 		result = append(result, ww)
 	}
 	return result, nil

@@ -83,7 +83,10 @@ func CreateGraph(region int, dbb *sql.DB) error {
 	var cross pudge.Cross
 	for crs.Next() {
 		crs.Scan(&state)
-		json.Unmarshal(state, &cross)
+		err = json.Unmarshal(state, &cross)
+		if err != nil {
+			return fmt.Errorf("unmarhal cross %s", err.Error())
+		}
 		v := Vertex{Region: cross.Region, Area: cross.Area, ID: cross.ID, Dgis: cross.Dgis, Name: cross.Name, Scale: cross.Scale}
 		state, _ := json.Marshal(v)
 		uid := v.getUID()

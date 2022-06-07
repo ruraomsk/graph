@@ -20,8 +20,10 @@ func AddWay(source pudge.Cross, target pudge.Cross, lenght int) error {
 		return err
 	}
 	way := Way{Region: source.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
-		Start: point{value: sext.vertex.Dgis}, Stop: point{value: tart.vertex.Dgis}, Lenght: lenght}
+		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
+	// fmt.Printf("%d %d %d -> %d %d %d\n", source.Region, source.Area, source.ID, target.Region, target.Area, target.ID)
+	oneR.modify = true
 	return nil
 }
 
@@ -36,7 +38,7 @@ func AddWayToPoint(source pudge.Cross, number int, lenght int) error {
 		return err
 	}
 	way := Way{Region: source.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
-		Start: point{value: sext.vertex.Dgis}, Stop: point{value: tart.vertex.Dgis}, Lenght: lenght}
+		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	oneR.modify = true
 	return nil
@@ -53,7 +55,7 @@ func AddWayFromPoint(number int, target pudge.Cross, lenght int) error {
 		return err
 	}
 	way := Way{Region: target.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
-		Start: point{value: sext.vertex.Dgis}, Stop: point{value: tart.vertex.Dgis}, Lenght: lenght}
+		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	oneR.modify = true
 	return nil
