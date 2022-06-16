@@ -16,6 +16,7 @@ func Open(dbb *sql.DB, dbbb *sql.DB) error {
 	if err != nil {
 		return err
 	}
+	defer regs.Close()
 	for regs.Next() {
 		var region int
 		regs.Scan(&region)

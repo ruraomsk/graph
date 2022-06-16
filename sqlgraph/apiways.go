@@ -11,6 +11,9 @@ func AddWay(source pudge.Cross, target pudge.Cross, lenght int) error {
 	if source.Region != target.Region {
 		return fmt.Errorf("разные регионы источника и цели")
 	}
+	if lenght <= 0 {
+		return fmt.Errorf("расстояние меньше либо равно ноль")
+	}
 	oneR, sext, err := verifyCross(source)
 	if err != nil {
 		return err
@@ -29,6 +32,9 @@ func AddWay(source pudge.Cross, target pudge.Cross, lenght int) error {
 
 //AddWayToPoint добавляет связь от перекрестка к точке
 func AddWayToPoint(source pudge.Cross, number int, lenght int) error {
+	if lenght <= 0 {
+		return fmt.Errorf("расстояние меньше либо равно ноль")
+	}
 	oneR, sext, err := verifyCross(source)
 	if err != nil {
 		return err
@@ -46,6 +52,9 @@ func AddWayToPoint(source pudge.Cross, number int, lenght int) error {
 
 //AddWayFromPoint добавляет связь от точки к перекрестку
 func AddWayFromPoint(number int, target pudge.Cross, lenght int) error {
+	if lenght <= 0 {
+		return fmt.Errorf("расстояние меньше либо равно ноль")
+	}
 	oneR, sext, err := verifyPoint(target.Region, number)
 	if err != nil {
 		return err

@@ -63,7 +63,6 @@ func CreateGraph(region int, dbb *sql.DB) error {
 	}
 	_, err = dbb.Exec(create)
 	if err != nil {
-		fmt.Println(err.Error())
 		return fmt.Errorf("запрос на создание графа %s", err.Error())
 	}
 

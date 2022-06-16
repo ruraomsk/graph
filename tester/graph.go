@@ -52,49 +52,46 @@ func FullTest() {
 		fmt.Println(err.Error())
 		return
 	}
+	fmt.Println("Data base loaded")
 	vl, err := sqlgraph.ReadAllVertex(region)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
+	fmt.Println("Start make ways")
 	for pos, v := range vl {
 		oneCross, err = getCross(v.Region, v.Area, v.ID)
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
-		// if pos < len(vl)-1 {
-		// 	twoCross, _ = getCross(vl[pos+1].Region, vl[pos+1].Area, vl[pos+1].ID)
-		// 	err = sqlgraph.AddWay(oneCross, twoCross, rnd.Intn(3000))
-		// 	if err != nil {
-		// 		fmt.Println(err.Error())
-		// 		return
-		// 	}
-		// 	err = sqlgraph.AddWay(twoCross, oneCross, rnd.Intn(3000))
-		// 	if err != nil {
-		// 		fmt.Println(err.Error())
-		// 		return
-		// 	}
-		// }
-
 		for i := 0; i < 4; i++ {
 			j := getPos(len(vl), pos)
 			twoCross, _ = getCross(vl[j].Region, vl[j].Area, vl[j].ID)
-			err = sqlgraph.AddWay(oneCross, twoCross, rnd.Intn(3000))
+			lens := 0
+			for lens <= 0 {
+				lens = rnd.Intn(3000)
+			}
+			err = sqlgraph.AddWay(oneCross, twoCross, lens)
 			if err != nil {
 				fmt.Println(err.Error())
 				return
 			}
-			err = sqlgraph.AddWay(twoCross, oneCross, rnd.Intn(3000))
+			err = sqlgraph.AddWay(twoCross, oneCross, lens)
 			if err != nil {
 				fmt.Println(err.Error())
 				return
 			}
 		}
 	}
+	fmt.Println("\nCreates ways end")
 	sqlgraph.MakeCorols(region, vl[0])
+	fmt.Println("Makers color end")
 	fmt.Println(sqlgraph.ListUnlinked(region))
-
+	fmt.Println(vl[0])
+	fmt.Println(vl[len(vl)-1])
+	fmt.Println(sqlgraph.MakePath(region, vl[0], vl[len(vl)-1]))
+	fmt.Println("Make Path end")
 	err = sqlgraph.Save(region)
 	if err != nil {
 		fmt.Println(err.Error())

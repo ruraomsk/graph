@@ -40,7 +40,7 @@ type WayToWeb struct {
 }
 type extVertex struct {
 	vertex Vertex
-	color  int
+	value  int
 	ways   map[uint64]*Way
 }
 

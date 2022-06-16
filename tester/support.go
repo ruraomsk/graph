@@ -11,6 +11,7 @@ func getCross(region, area, id int) (pudge.Cross, error) {
 	if err != nil {
 		return pudge.Cross{}, err
 	}
+	defer crs.Close()
 	var cross pudge.Cross
 	for crs.Next() {
 		var state []byte

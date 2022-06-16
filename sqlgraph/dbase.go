@@ -6,8 +6,8 @@ import (
 )
 
 func (o *oneRegion) loadGraph() error {
-	vs, err := dbv.Query("select state from public.vertex where region=$1;", o.region)
 	o.load = false
+	vs, err := dbv.Query("select state from public.vertex where region=$1;", o.region)
 	if err != nil {
 		return err
 	}
