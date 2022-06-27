@@ -45,6 +45,7 @@ func GetWaysFromCross(cross pudge.Cross) ([]WayToWeb, error) {
 	}
 	for _, v := range sext.ways {
 		ww := WayToWeb{Region: v.Region, SourceArea: getArea(v.Source), SourceID: getID(v.Source), TargetArea: getArea(v.Target), TargetID: getID(v.Target),
+			LineSource: v.LineSource, LineTarget: v.LineTarget,
 			Start: v.Start, Stop: v.Stop}
 		result = append(result, ww)
 	}

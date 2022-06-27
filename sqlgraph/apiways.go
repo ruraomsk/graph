@@ -7,7 +7,7 @@ import (
 )
 
 //AddWay добавляет связь между двумя перекрестками
-func AddWay(source pudge.Cross, target pudge.Cross, lenght int) error {
+func AddWay(source pudge.Cross, target pudge.Cross, lsource, ltarget, lenght int) error {
 	if source.Region != target.Region {
 		return fmt.Errorf("разные регионы источника и цели")
 	}
@@ -23,6 +23,7 @@ func AddWay(source pudge.Cross, target pudge.Cross, lenght int) error {
 		return err
 	}
 	way := Way{Region: source.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
+		LineSource: lsource, LineTarget: ltarget,
 		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	// fmt.Printf("%d %d %d -> %d %d %d\n", source.Region, source.Area, source.ID, target.Region, target.Area, target.ID)
@@ -31,7 +32,7 @@ func AddWay(source pudge.Cross, target pudge.Cross, lenght int) error {
 }
 
 //AddWayToPoint добавляет связь от перекрестка к точке
-func AddWayToPoint(source pudge.Cross, number int, lenght int) error {
+func AddWayToPoint(source pudge.Cross, number int, lsource, ltarget, lenght int) error {
 	if lenght <= 0 {
 		return fmt.Errorf("расстояние меньше либо равно ноль")
 	}
@@ -44,6 +45,7 @@ func AddWayToPoint(source pudge.Cross, number int, lenght int) error {
 		return err
 	}
 	way := Way{Region: source.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
+		LineSource: lsource, LineTarget: ltarget,
 		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	oneR.modify = true
@@ -51,7 +53,7 @@ func AddWayToPoint(source pudge.Cross, number int, lenght int) error {
 }
 
 //AddWayFromPoint добавляет связь от точки к перекрестку
-func AddWayFromPoint(number int, target pudge.Cross, lenght int) error {
+func AddWayFromPoint(number int, target pudge.Cross, lsource, ltarget, lenght int) error {
 	if lenght <= 0 {
 		return fmt.Errorf("расстояние меньше либо равно ноль")
 	}
@@ -64,6 +66,7 @@ func AddWayFromPoint(number int, target pudge.Cross, lenght int) error {
 		return err
 	}
 	way := Way{Region: target.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
+		LineSource: lsource, LineTarget: ltarget,
 		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	oneR.modify = true

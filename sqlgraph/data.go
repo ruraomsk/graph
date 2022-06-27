@@ -17,13 +17,15 @@ type Vertex struct {
 
 //Way описание ребра графа
 type Way struct {
-	Region int    `json:"region"` //Регион
-	Source uint64 `json:"source"` //Источник код перекрестка
-	Target uint64 `json:"target"` //Получатель уод перекрестка
-	Start  string `json:"starts"`
-	Stop   string `json:"stops"`
-	Lenght int    `json:"lenght"`
-	Time   int    `json:"time"`
+	Region     int    `json:"region"`  //Регион
+	Source     uint64 `json:"source"`  //Источник код перекрестка
+	Target     uint64 `json:"target"`  //Получатель код перекрестка
+	LineSource int    `json:"lsource"` //код направления источника
+	LineTarget int    `json:"ltarget"` //код направления приемника
+	Start      string `json:"starts"`
+	Stop       string `json:"stops"`
+	Lenght     int    `json:"lenght"`
+	Time       int    `json:"time"`
 }
 
 //WayToWeb описание ребра для отражения в браузере
@@ -33,6 +35,8 @@ type WayToWeb struct {
 	SourceID   int    `json:"sourceID"`   //Источник код перекрестка
 	TargetArea int    `json:"targetArea"` //Получатель уод перекрестка
 	TargetID   int    `json:"targetID"`   //Получатель уод перекрестка
+	LineSource int    `json:"lsource"`    //код направления источника
+	LineTarget int    `json:"ltarget"`    //код направления приемника
 	Start      string `json:"starts"`
 	Stop       string `json:"stops"`
 	Lenght     int    `json:"lenght"`
