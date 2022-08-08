@@ -72,12 +72,12 @@ func FullTest() {
 			for lens <= 0 {
 				lens = rnd.Intn(3000)
 			}
-			err = sqlgraph.AddWay(oneCross, twoCross, 1, 3, lens)
+			err = sqlgraph.AddWay(oneCross, twoCross, 1, 2, lens)
 			if err != nil {
 				fmt.Println(err.Error())
 				return
 			}
-			err = sqlgraph.AddWay(twoCross, oneCross, 2, 4, lens)
+			err = sqlgraph.AddWay(twoCross, oneCross, 3, 4, lens)
 			if err != nil {
 				fmt.Println(err.Error())
 				return

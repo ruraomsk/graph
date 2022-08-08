@@ -86,7 +86,8 @@ func CreateGraph(region int, dbb *sql.DB) error {
 		if err != nil {
 			return fmt.Errorf("unmarhal cross %s", err.Error())
 		}
-		v := Vertex{Region: cross.Region, Area: cross.Area, ID: cross.ID, Dgis: cross.Dgis, Name: cross.Name, Scale: cross.Scale}
+		v := Vertex{Region: cross.Region, Area: cross.Area, ID: cross.ID, Dgis: cross.Dgis, Name: cross.Name, Scale: cross.Scale,
+			LineIn: []int{1, 3, 5, 7, 9, 11, 13, 15}, LineOut: []int{2, 4, 6, 8, 10, 12, 14}}
 		state, _ := json.Marshal(v)
 		uid := v.getUID()
 		_, err = dbb.Exec("INSERT INTO public.vertex (region,uids,state) VALUES ($1, $2,$3);", cross.Region, uid, state)

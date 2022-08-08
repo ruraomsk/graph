@@ -7,12 +7,14 @@ import (
 
 //Vertex хранение вершины графа
 type Vertex struct {
-	Region int     `json:"region"` //Регион
-	Area   int     `json:"area"`   //Район
-	ID     int     `json:"id"`     //Номер перекрестка
-	Dgis   string  `json:"dgis"`   //Координаты перекрестка
-	Scale  float64 `json:"scale"`  //Масштаб
-	Name   string  `json:"name"`
+	Region  int     `json:"region"` //Регион
+	Area    int     `json:"area"`   //Район
+	ID      int     `json:"id"`     //Номер перекрестка
+	Dgis    string  `json:"dgis"`   //Координаты перекрестка
+	Scale   float64 `json:"scale"`  //Масштаб
+	LineIn  []int   `json:"lin"`    //Номера направлений входящие
+	LineOut []int   `json:"lout"`   //Номера направлений исходящие
+	Name    string  `json:"name"`
 }
 
 //Way описание ребра графа
