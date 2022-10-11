@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-//Vertex хранение вершины графа
+// Vertex хранение вершины графа
 type Vertex struct {
 	Region  int     `json:"region"` //Регион
 	Area    int     `json:"area"`   //Район
@@ -17,7 +17,7 @@ type Vertex struct {
 	Name    string  `json:"name"`
 }
 
-//Way описание ребра графа
+// Way описание ребра графа
 type Way struct {
 	Region     int    `json:"region"`  //Регион
 	Source     uint64 `json:"source"`  //Источник код перекрестка
@@ -30,7 +30,7 @@ type Way struct {
 	Time       int    `json:"time"`
 }
 
-//WayToWeb описание ребра для отражения в браузере
+// WayToWeb описание ребра для отражения в браузере
 type WayToWeb struct {
 	Region     int    `json:"region"`     //Регион
 	SourceArea int    `json:"sourceArea"` //Источник код перекрестка
@@ -66,9 +66,9 @@ func (v *Vertex) getUID() uint64 {
 	return uint64(v.Region<<32 + v.Area<<16 + v.ID)
 }
 
-// func setUID(region, area, id int) uint64 {
-// 	return uint64(region<<32 + area<<16 + id)
-// }
+//	func setUID(region, area, id int) uint64 {
+//		return uint64(region<<32 + area<<16 + id)
+//	}
 func (v *Vertex) getCross() string {
 	return fmt.Sprintf("регион %d область %d ДК %d", v.Region, v.Area, v.ID)
 }
@@ -76,9 +76,9 @@ func (w *Way) getCrossSource() string {
 	return fmt.Sprintf("регион %d область %d ДК %d", w.Source>>32&0xffff, w.Source>>16&0xffff, w.Source&0xffff)
 }
 
-// func (w *Way) getCrossTarget() string {
-// 	return fmt.Sprintf("регион %d область %d ДК %d", w.Target>>32&0xffff, w.Target>>16&0xffff, w.Target&0xffff)
-// }
+//	func (w *Way) getCrossTarget() string {
+//		return fmt.Sprintf("регион %d область %d ДК %d", w.Target>>32&0xffff, w.Target>>16&0xffff, w.Target&0xffff)
+//	}
 func getArea(uid uint64) int {
 	return int(uid >> 16 & 0xffff)
 }

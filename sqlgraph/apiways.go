@@ -6,8 +6,8 @@ import (
 	"github.com/ruraomsk/ag-server/pudge"
 )
 
-//AddWay добавляет связь между двумя перекрестками
-func AddWay(source pudge.Cross, target pudge.Cross, lsource, ltarget, lenght int) error {
+// AddWay добавляет связь между двумя перекрестками
+func AddWay(source pudge.Cross, target pudge.Cross, lsource, ltarget, lenght, ltime int) error {
 	if source.Region != target.Region {
 		return fmt.Errorf("разные регионы источника и цели")
 	}
@@ -24,15 +24,15 @@ func AddWay(source pudge.Cross, target pudge.Cross, lsource, ltarget, lenght int
 	}
 	way := Way{Region: source.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
 		LineSource: lsource, LineTarget: ltarget,
-		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
+		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght, Time: ltime}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	// fmt.Printf("%d %d %d -> %d %d %d\n", source.Region, source.Area, source.ID, target.Region, target.Area, target.ID)
 	oneR.modify = true
 	return nil
 }
 
-//AddWayToPoint добавляет связь от перекрестка к точке
-func AddWayToPoint(source pudge.Cross, number int, lsource, ltarget, lenght int) error {
+// AddWayToPoint добавляет связь от перекрестка к точке
+func AddWayToPoint(source pudge.Cross, number int, lsource, ltarget, lenght, ltime int) error {
 	if lenght <= 0 {
 		return fmt.Errorf("расстояние меньше либо равно ноль")
 	}
@@ -46,14 +46,14 @@ func AddWayToPoint(source pudge.Cross, number int, lsource, ltarget, lenght int)
 	}
 	way := Way{Region: source.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
 		LineSource: lsource, LineTarget: ltarget,
-		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
+		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght, Time: ltime}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	oneR.modify = true
 	return nil
 }
 
-//AddWayFromPoint добавляет связь от точки к перекрестку
-func AddWayFromPoint(number int, target pudge.Cross, lsource, ltarget, lenght int) error {
+// AddWayFromPoint добавляет связь от точки к перекрестку
+func AddWayFromPoint(number int, target pudge.Cross, lsource, ltarget, lenght, ltime int) error {
 	if lenght <= 0 {
 		return fmt.Errorf("расстояние меньше либо равно ноль")
 	}
@@ -67,13 +67,13 @@ func AddWayFromPoint(number int, target pudge.Cross, lsource, ltarget, lenght in
 	}
 	way := Way{Region: target.Region, Source: sext.vertex.getUID(), Target: tart.vertex.getUID(),
 		LineSource: lsource, LineTarget: ltarget,
-		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght}
+		Start: sext.vertex.Dgis, Stop: tart.vertex.Dgis, Lenght: lenght, Time: ltime}
 	oneR.vertexs[way.Source].ways[way.Target] = &way
 	oneR.modify = true
 	return nil
 }
 
-//DeleteWay удаляет связь между двумя перекрестками
+// DeleteWay удаляет связь между двумя перекрестками
 func DeleteWay(source pudge.Cross, target pudge.Cross) error {
 	if source.Region != target.Region {
 		return fmt.Errorf("разные регионы источника и цели")
@@ -91,7 +91,7 @@ func DeleteWay(source pudge.Cross, target pudge.Cross) error {
 	return nil
 }
 
-//DeleteWayToPoint удаляет путь от перекрестка к точке
+// DeleteWayToPoint удаляет путь от перекрестка к точке
 func DeleteWayToPoint(source pudge.Cross, number int) error {
 	oneR, sext, err := verifyCross(source)
 	if err != nil {
@@ -106,7 +106,7 @@ func DeleteWayToPoint(source pudge.Cross, number int) error {
 	return nil
 }
 
-//DeleteWayFromPoint удаляет путь от точки к перекрестку
+// DeleteWayFromPoint удаляет путь от точки к перекрестку
 func DeleteWayFromPoint(number int, target pudge.Cross) error {
 	oneR, sext, err := verifyPoint(target.Region, number)
 	if err != nil {
